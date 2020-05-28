@@ -115,18 +115,20 @@
 }
 
 .cart__footer {
+    padding: 20px 0;
+}
+
+.cart__footer-row {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 0;
 }
 
 .cart__footer-title {
     font-size: 25px;
     line-height: 30px;
     font-weight: 500;
-    margin-right: 10px;
 }
 
 .cart__footer-block {
@@ -141,6 +143,14 @@
     border: none;
     outline: none;
     border-bottom: 1px dashed #ff6900;
+    margin-left: 10px;
+}
+
+.cart__footer-delivery {
+    font-size: 12px;
+    font-style: italic;
+    text-align: right;
+    margin-top: 10px;
 }
 
 .cart__order {

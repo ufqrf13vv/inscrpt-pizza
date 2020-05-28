@@ -43,15 +43,8 @@ class Cart extends Component {
     }
 
     handleChange = event => {
-        const regExp = /^[\s()+-]*?([0-9][\s()+-]*){6,20}$/;
         this.setState({ [event.target.name]: event.target.value });
         document.querySelector(`#${event.target.name}`).classList.remove('error');
-
-        if (event.target.name === 'phone') {
-            console.log(event.target.value.match(regExp))
-        }
-        
-        // return !!val.match(regExp) || val.length !== 0;
     }
 
     handleOrder = () => {
@@ -77,14 +70,17 @@ class Cart extends Component {
             saveOrderToDB(name, surname, phone, address, this.props.cart, this.props.total);
             this.props.clearCart();
             localStorage.clear();
+
             alert('Your order has been placed!');
         }
     }
 
     render() {
         const { cart, EUR } = this.props;
-        const total = this.state.currency === 'eur' ? (this.props.total * EUR).toFixed(2) : this.props.total;
-        console.log(!!cart.length)
+        const total = this.state.currency === 'eur' 
+                    ? ((this.props.total * EUR) + (this.props.total * EUR) * 0.1).toFixed(2)
+                    : (this.props.total + this.props.total * 0.1).toFixed(2);
+ 
         return (
             <main className="main-wrapper">
                 <section className="main-content">
@@ -162,20 +158,24 @@ class Cart extends Component {
                                     }
                                 </div>
                                 <div className="cart__footer">
-                                    <div className="cart__footer-block">
-                                        <div className="cart__footer-title">Currency:</div>
-                                        <select 
-                                            className="cart__footer-select" 
-                                            onChange={this.handleChangeCurrency} 
-                                            value={this.state.currency}
-                                        >
-                                            <option value="usd">$</option>
-                                            <option value="eur">€</option>
-                                        </select>
+                                    <div className="cart__footer-row">
+                                        <div className="cart__footer-block">
+                                            <div className="cart__footer-title">Currency:</div>
+                                            <select 
+                                                className="cart__footer-select" 
+                                                onChange={this.handleChangeCurrency} 
+                                                value={this.state.currency}
+                                            >
+                                                <option value="usd">$</option>
+                                                <option value="eur">€</option>
+                                            </select>
+                                        </div>
+                                        <div className="cart__footer-block">
+                                            <div className="cart__footer-title">Total: {total}</div>
+                                            
+                                        </div>
                                     </div>
-                                    <div className="cart__footer-block">
-                                        <div className="cart__footer-title">Total: {total}</div>
-                                    </div>
+                                    <div className="cart__footer-delivery">10% added as a delivery cost</div>
                                 </div>
                                 <div className="cart__order">
                                     <button className="cart__order-btn" onClick={this.handleOrder}>Order</button>
@@ -192,7 +192,7 @@ class Cart extends Component {
 
 const mapStateToProps = state => ({
     cart: state.cart.items,
-    total: state.cart.items.reduce((acc, cur) => acc + cur.price * cur.quantity, 0).toFixed(2),
+    total: Number(state.cart.items.reduce((acc, cur) => acc + cur.price * cur.quantity, 0).toFixed(2)),
     EUR: state.currency.data.EUR
 })
 
