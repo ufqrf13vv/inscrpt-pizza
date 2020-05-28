@@ -1,0 +1,37 @@
+.loader {
+    background: #ff6900;
+    border-radius: 100%;
+    width: 100px;
+    height: 100px;
+    -webkit-animation: pulsing 1s infinite;
+    animation: pulsing 1s infinite;
+    margin: 0 auto;
+}
+  
+@-webkit-keyframes pulsing {
+    0% {
+        -webkit-transform: scale(0.5, 0.5);
+        transform: scale(0.5, 0.5);
+        opacity: 1;
+    }
+
+    100% {
+        -webkit-transform: scale(1.5, 1.5);
+        transform: scale(1.5, 1.5);
+        opacity: 0;
+    }
+}
+  
+@keyframes pulsing {
+    0% {
+        -webkit-transform: scale(0.5, 0.5);
+        transform: scale(0.5, 0.5);
+        opacity: 1;
+    }
+
+    100% {
+        -webkit-transform: scale(1.5, 1.5);
+        transform: scale(1.5, 1).5;
+        opacity: 0;
+    }
+}

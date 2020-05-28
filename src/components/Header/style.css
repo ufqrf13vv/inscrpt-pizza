@@ -1,0 +1,16 @@
+.header {
+    border-bottom: 1px solid #e6e6e6;
+}
+
+.header__wrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header__phone {
+    font-size: 24px;
+    line-height: 26px;
+    font-weight: 500;
+}

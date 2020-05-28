@@ -1,0 +1,57 @@
+[
+    {
+        "_id": "5e9310828329180a7f5f447c",
+        "title": "Buffalo Chicken",
+        "ingredients": "Grilled chicken, buffalo sauce, mozzarella, cheddar, red onions",
+        "image": "https://i.ibb.co/wQHr7jq/buffalo-chicken.jpg",
+        "price": 9.99
+    }, {
+        "_id": "5e9310828329180a7f5f447d",
+        "title": "Chicken BBQ",
+        "ingredients": "Grilled chicken, bbq sauce, bacon, mozzarella, fresh basil, red onions",
+        "image": "https://i.ibb.co/F7pDGMd/chicken-bbq.jpg",
+        "price": 11.99
+    }, {
+        "_id": "5e9310828329180a7f5f447e",
+        "title": "Supreme",
+        "ingredients": "Pepperoni, fresh basil, mozzarella, italian sausage, bacon, mushrooms, red onions, black olives, green peppers, marinara sauce",
+        "image": "https://i.ibb.co/MPZ34nq/supreme.jpg",
+        "price": 12.99
+    }, {
+        "_id": "5e9310828329180a7f5f447f",
+        "title": "Chicken Club",
+        "ingredients": "Grilled chicken, cherry tomatoes, ricotta, fresh parsley, mozzarella, bacon, red onions",
+        "image": "https://i.ibb.co/nmkJXFb/chicken-club.jpg",
+        "price": 11.99
+    }, {
+        "_id": "5e9310828329180a7f5f4480",
+        "title": "Hawaiian",
+        "ingredients": "Ham, fresh pineapple, mozzarella, marinara sauce, fresh basil",
+        "image": "https://i.ibb.co/t2XvG5g/hawaiian.jpg",
+        "price": 8.99
+    }, {
+        "_id": "5e9310828329180a7f5f4481",
+        "title": "Sausage",
+        "ingredients": "Double italian sausage, mozzarella, marinara sauce, fresh basil",
+        "image": "https://i.ibb.co/ZYjPwmr/sausage.jpg",
+        "price": 9.99
+    }, {
+        "_id": "5e9310828329180a7f5f4482",
+        "title": "Pepperoni",
+        "ingredients": "Double pepperoni, mozzarella, marinara sauce, fresh basil",
+        "image": "https://i.ibb.co/4JK9Lj6/pepperoni.jpg",
+        "price": 9.99
+    }, {
+        "_id": "5e9310828329180a7f5f4483",
+        "title": "The Meats",
+        "ingredients": "Pepperoni, ham, italian sausage, mozzarella, bacon, marinara sauce, fresh basil",
+        "image": "https://i.ibb.co/sQXV0wQ/the-meats.jpg",
+        "price": 15.99
+    }, {
+        "_id": "5e9310828329180a7f5f4484",
+        "title": "Spinach Feta",
+        "ingredients": "Fresh spinach, feta, ricotta, mozzarella, fresh parsley, red onions",
+        "image": "https://i.ibb.co/qpcP3hV/spinach-feta.jpg",
+        "price": 7.99
+    }
+]
