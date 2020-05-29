@@ -21,7 +21,8 @@ class Cart extends Component {
 
     componentDidMount() {
         this.props.getCart();
-        this.props.getCurrencyRequest();
+        
+        if (!!this.props.cart.length) this.props.getCurrencyRequest();
     }
 
     handleIncItem = id => {

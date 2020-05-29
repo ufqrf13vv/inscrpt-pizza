@@ -1,9 +1,5 @@
 import { takeEvery, call, put } from 'redux-saga/effects';
-import {
-    getCurrencySuccess,
-    getCurrencyFailure,
-    GET_CURRENCY_REQUEST
-} from '../../actions/currency';
+import { getCurrencySuccess, getCurrencyFailure, GET_CURRENCY_REQUEST } from '../../actions/currency';
 import { currencyWatch, currencyFlow, getCurrency } from '../currency';
 
 describe('Get currency data', () => {
