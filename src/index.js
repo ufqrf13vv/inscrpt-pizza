@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import Routes from './components/Routes';
 import * as serviceWorker from './serviceWorker';
-import { createDB } from './helpers';
 
 ReactDOM.render(
   <Routes />,
@@ -14,4 +13,3 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();
-createDB();

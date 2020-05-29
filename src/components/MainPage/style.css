@@ -1,7 +1,10 @@
 .products {
-    display: flex;
-    flex-wrap: wrap;
     padding-bottom: 40px;
+}
+
+.products__wrapper {
+    display: flex;
+    flex-wrap: wrap; 
 }
 
 .products__item {

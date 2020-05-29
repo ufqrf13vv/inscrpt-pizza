@@ -30,7 +30,7 @@ export default function cart(state = initialState, action) {
         case GET_CART:
             return {
                 ...state,
-                items: state.items.concat(action.data)
+                items: action.data
             }
         case CLEAR_CART:
             return {

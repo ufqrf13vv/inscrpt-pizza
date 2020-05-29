@@ -4,9 +4,6 @@ import { connect } from 'react-redux';
 import { getProductsRequest } from '../../actions/products';
 import { ascItemInCart } from '../../actions/cart';
 
-import Header from '../Header/Header';
-import Menu from '../Menu/Menu';
-import Footer from '../Footer/Footer';
 import Item from './Item';
 import Loader from '../Loader/Loader';
 
@@ -31,20 +28,13 @@ class MainPage extends Component {
         const { products, isLoading } = this.props;
 
         return (
-            <main className="main-wrapper">
-                <section className="main-content">
-                    <Header />
-                    <Menu />
-                    <div className="container">
-                        <h1>Pizza</h1>
-                        {isLoading && <Loader />}
-                        <div className="products">
-                            { products.map((el, index) => <Item key={index} item={el} handleAdd={this.handleAdd} />) }
-                        </div>
-                    </div>
-                </section>
-                <Footer />
-            </main>
+            <div className="products">
+                <h1>Pizza</h1>
+                {isLoading && <Loader />}
+                <div className="products__wrapper">
+                    { products.map((el, index) => <Item key={index} item={el} handleAdd={this.handleAdd} />) }
+                </div>
+            </div>
         )
     }
 }

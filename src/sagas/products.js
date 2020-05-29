@@ -10,7 +10,7 @@ const getProducts = () => {
     })
 }
 
-const productsFlow = function* productsFlow() {
+function* productsFlow() {
     try {
         const products = yield getProducts();
 
@@ -20,6 +20,12 @@ const productsFlow = function* productsFlow() {
     }
 }
 
-export default function* productsWatch() {
+function* productsWatch() {
     yield takeEvery(GET_PRODUCTS_REQUEST, productsFlow)
+}
+
+export {
+    productsWatch,
+    productsFlow,
+    getProducts
 }

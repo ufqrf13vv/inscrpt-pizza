@@ -9,7 +9,7 @@ const getCurrency = function() {
         .catch(error => error)
 }
 
-const currencyFlow = function* currencyFlow() {
+function* currencyFlow() {
     try {
         const data = yield call(getCurrency);
 
@@ -19,6 +19,12 @@ const currencyFlow = function* currencyFlow() {
     }
 }
 
-export default function* currencyWatch() {
+function* currencyWatch() {
     yield takeEvery(GET_CURRENCY_REQUEST, currencyFlow)
+}
+
+export {
+    currencyWatch,
+    currencyFlow,
+    getCurrency
 }

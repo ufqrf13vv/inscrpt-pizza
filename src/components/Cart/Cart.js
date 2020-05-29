@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import Header from '../Header/Header';
-import Menu from '../Menu/Menu';
-import Footer from '../Footer/Footer';
 import CartItem from './CartItem';
 
-import { removeItemFromCart, ascItemInCart, descItemInCart, clearCart } from '../../actions/cart';
+import { getCart, removeItemFromCart, ascItemInCart, descItemInCart, clearCart } from '../../actions/cart';
 import { getCurrencyRequest } from '../../actions/currency';
 
-import { saveOrderToDB } from '../../helpers';
+import { saveOrder, clearLocalCart } from '../../helpers';
 
 import './style.css';
 
@@ -23,6 +20,7 @@ class Cart extends Component {
     }
 
     componentDidMount() {
+        this.props.getCart();
         this.props.getCurrencyRequest();
     }
 
@@ -67,9 +65,16 @@ class Cart extends Component {
         }
 
         if (name && surname && phone && address) {
-            saveOrderToDB(name, surname, phone, address, this.props.cart, this.props.total);
+            saveOrder({
+                name: name, 
+                surname: surname, 
+                phone: phone, 
+                address: address, 
+                order: this.props.cart, 
+                total: this.props.total 
+            })
             this.props.clearCart();
-            localStorage.clear();
+            clearLocalCart();
 
             alert('Your order has been placed!');
         }
@@ -80,112 +85,105 @@ class Cart extends Component {
         const total = this.state.currency === 'eur' 
                     ? ((this.props.total * EUR) + (this.props.total * EUR) * 0.1).toFixed(2)
                     : (this.props.total + this.props.total * 0.1).toFixed(2);
- 
-        return (
-            <main className="main-wrapper">
-                <section className="main-content">
-                    <Header />
-                    <Menu />
-                    <div className="container">
-                        <h1>Cart</h1>
-                        {!cart.length ? 
-                            <div className="cart__empty">
-                                <span>Your cart is currently empty.</span>
-                                <span>Taste our super <a href="/pizza">pizza</a> before somebody did it before you!</span>
-                            </div> 
-                            : 
-                            <div className="cart">
-                                <div className="cart__form">
-                                    <div className="cart__form-block">
-                                        <label className="cart__form-label" htmlFor="name">First Name</label>
-                                        <input 
-                                            className="cart__form-input" 
-                                            type="text" 
-                                            id="name" 
-                                            name="name" 
-                                            onChange={this.handleChange} 
-                                        />
-                                    </div>
-                                    <div className="cart__form-block">
-                                        <label className="cart__form-label" htmlFor="surname">Last Name</label>
-                                        <input 
-                                            className="cart__form-input" 
-                                            type="text" 
-                                            id="surname"
-                                            name="surname" 
-                                            onChange={this.handleChange} 
-                                        />
-                                    </div>
-                                    <div className="cart__form-block">
-                                        <label className="cart__form-label" htmlFor="phone">Phone</label>
-                                        <input 
-                                            className="cart__form-input" 
-                                            type="text" 
-                                            id="phone" 
-                                            name="phone"
-                                            onChange={this.handleChange} 
-                                        />
-                                    </div>
-                                    <div className="cart__form-block">
-                                        <label className="cart__form-label" htmlFor="address">Address</label>
-                                        <input 
-                                            className="cart__form-input" 
-                                            type="text" 
-                                            id="address" 
-                                            name="address"
-                                            onChange={this.handleChange} 
-                                        />
-                                    </div>
-                                </div>
-                                <div className="cart__wrapper">
-                                    {cart.length &&
-                                        cart.map((item, index) => {
-                                            const price = this.state.currency === 'eur' 
-                                                ? (item.price * EUR).toFixed(2)
-                                                : item.price;
 
-                                            return (
-                                                <CartItem 
-                                                    key={index} 
-                                                    item={item} 
-                                                    price={price} 
-                                                    handleDescItem={this.handleDescItem}
-                                                    handleIncItem={this.handleIncItem}
-                                                    handleRemove={this.handleRemove}
-                                                />
-                                            )
-                                        })
-                                    }
+        return (
+            <div className="cart">
+                <h1>Cart</h1>
+                {!cart.length ? 
+                    <div className="cart__empty">
+                        <span>Your cart is currently empty.</span>
+                        <span>Taste our super <a href="/pizza">pizza</a> before somebody did it before you!</span>
+                    </div> 
+                    : 
+                    <div className="cart__container">
+                        <div className="cart__form">
+                            <div className="cart__form-block">
+                                <label className="cart__form-label" htmlFor="name">First Name</label>
+                                <input 
+                                    className="cart__form-input" 
+                                    type="text" 
+                                    id="name" 
+                                    name="name" 
+                                    onChange={this.handleChange} 
+                                />
+                            </div>
+                            <div className="cart__form-block">
+                                <label className="cart__form-label" htmlFor="surname">Last Name</label>
+                                <input 
+                                    className="cart__form-input" 
+                                    type="text" 
+                                    id="surname"
+                                    name="surname" 
+                                    onChange={this.handleChange} 
+                                />
+                            </div>
+                            <div className="cart__form-block">
+                                <label className="cart__form-label" htmlFor="phone">Phone</label>
+                                <input 
+                                    className="cart__form-input" 
+                                    type="text" 
+                                    id="phone" 
+                                    name="phone"
+                                    onChange={this.handleChange} 
+                                />
+                            </div>
+                            <div className="cart__form-block">
+                                <label className="cart__form-label" htmlFor="address">Address</label>
+                                <input 
+                                    className="cart__form-input" 
+                                    type="text" 
+                                    id="address" 
+                                    name="address"
+                                    onChange={this.handleChange} 
+                                />
+                            </div>
+                        </div>
+                        <div className="cart__wrapper">
+                            {cart.length &&
+                                cart.map((item, index) => {
+                                    const price = this.state.currency === 'eur' 
+                                        ? (item.price * EUR).toFixed(2)
+                                        : item.price;
+
+                                    return (
+                                        <CartItem 
+                                            key={index} 
+                                            item={item} 
+                                            price={price} 
+                                            handleDescItem={this.handleDescItem}
+                                            handleIncItem={this.handleIncItem}
+                                            handleRemove={this.handleRemove}
+                                        />
+                                    )
+                                })
+                            }
+                        </div>
+                        <div className="cart__footer">
+                            <div className="cart__footer-row">
+                                <div className="cart__footer-block">
+                                    <div className="cart__footer-title">Currency:</div>
+                                    <select 
+                                        className="cart__footer-select" 
+                                        onChange={this.handleChangeCurrency} 
+                                        value={this.state.currency}
+                                    >
+                                        <option value="usd">$</option>
+                                        <option value="eur">€</option>
+                                    </select>
                                 </div>
-                                <div className="cart__footer">
-                                    <div className="cart__footer-row">
-                                        <div className="cart__footer-block">
-                                            <div className="cart__footer-title">Currency:</div>
-                                            <select 
-                                                className="cart__footer-select" 
-                                                onChange={this.handleChangeCurrency} 
-                                                value={this.state.currency}
-                                            >
-                                                <option value="usd">$</option>
-                                                <option value="eur">€</option>
-                                            </select>
-                                        </div>
-                                        <div className="cart__footer-block">
-                                            <div className="cart__footer-title">Total: {total}</div>
-                                            
-                                        </div>
-                                    </div>
-                                    <div className="cart__footer-delivery">10% added as a delivery cost</div>
-                                </div>
-                                <div className="cart__order">
-                                    <button className="cart__order-btn" onClick={this.handleOrder}>Order</button>
+                                <div className="cart__footer-block">
+                                    <div className="cart__footer-title">Total: {total}</div>
+                                    
                                 </div>
                             </div>
-                        }
+                            <div className="cart__footer-delivery">10% added as a delivery cost</div>
+                        </div>
+                        <div className="cart__order">
+                            <button className="cart__order-btn" onClick={this.handleOrder}>Order</button>
+                        </div>
                     </div>
-                </section>
-                <Footer />
-            </main>
+                }
+            </div>
         )
     }
 }
@@ -197,6 +195,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = {
+    getCart,
     removeItemFromCart,
     ascItemInCart,
     descItemInCart,
@@ -208,8 +207,3 @@ export default connect(
     mapStateToProps,
     mapDispatchToProps
 )(Cart);
-
-// static phone(val) {
-//     const regExp = /^[\s()+-]*?([0-9][\s()+-]*){6,20}$/;
-//     return !!val.match(regExp) || val.length !== 0;
-// }

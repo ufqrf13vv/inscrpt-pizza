@@ -1,7 +1,10 @@
 .cart {
+    padding-bottom: 40px;
+}
+
+.cart__container {
     width: 60%;
     margin: 0 auto;
-    padding-bottom: 40px;
 }
 
 .cart__empty {
