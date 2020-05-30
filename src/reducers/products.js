@@ -4,7 +4,7 @@ import {
     GET_PRODUCTS_FAILURE
 } from '../actions/products'
 
-const initialState = {
+export const initialState = {
     isLoading: false,
     data: [],
     error: ''

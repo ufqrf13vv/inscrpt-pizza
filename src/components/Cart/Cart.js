@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import CartItem from './CartItem';
 
-import { getCart, removeItemFromCart, ascItemInCart, descItemInCart, clearCart } from '../../actions/cart';
+import { removeItemFromCart, ascItemInCart, descItemInCart, clearCart } from '../../actions/cart';
 import { getCurrencyRequest } from '../../actions/currency';
 
 import { saveOrder, clearLocalCart } from '../../helpers';
@@ -20,17 +20,17 @@ class Cart extends Component {
     }
 
     componentDidMount() {
-        this.props.getCart();
-        
-        if (!!this.props.cart.length) this.props.getCurrencyRequest();
+        this.props.getCurrencyRequest();
     }
 
     handleIncItem = id => {
-        this.props.ascItemInCart({ id: id });
+        this.props.ascItemInCart({ id });
     }
 
     handleDescItem = (id, quantity) => {
-        if (quantity > 1) this.props.descItemInCart(id);
+        if (quantity > 1) {
+            this.props.descItemInCart(id)
+        };
     }
 
     handleRemove = id => {
@@ -42,8 +42,10 @@ class Cart extends Component {
     }
 
     handleChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
-        document.querySelector(`#${event.target.name}`).classList.remove('error');
+        const { name, value } = event.target;
+
+        this.setState({ [name]: value });
+        document.querySelector(`#${name}`).classList.remove('error');
     }
 
     handleOrder = () => {
@@ -73,7 +75,8 @@ class Cart extends Component {
                 address: address, 
                 order: this.props.cart, 
                 total: this.props.total 
-            })
+            });
+            
             this.props.clearCart();
             clearLocalCart();
 
@@ -82,20 +85,24 @@ class Cart extends Component {
     }
 
     render() {
-        const { cart, EUR } = this.props;
-        const total = this.state.currency === 'eur' 
-                    ? ((this.props.total * EUR) + (this.props.total * EUR) * 0.1).toFixed(2)
-                    : (this.props.total + this.props.total * 0.1).toFixed(2);
+        const { cart, EUR, total } = this.props;
+        const totalSum = this.state.currency === 'eur' 
+            ? ((total * EUR) + (total * EUR) * 0.1).toFixed(2)
+            : (total + total * 0.1).toFixed(2);
+        const currencyList = [
+            { key: 'usd', value: '$'},
+            { key: 'eur', value: '€'}
+        ];
 
         return (
             <div className="cart">
                 <h1>Cart</h1>
-                {!cart.length ? 
+                {!cart.length ? (
                     <div className="cart__empty">
                         <span>Your cart is currently empty.</span>
                         <span>Taste our super <a href="/pizza">pizza</a> before somebody did it before you!</span>
-                    </div> 
-                    : 
+                    </div>
+                ) : (
                     <div className="cart__container">
                         <div className="cart__form">
                             <div className="cart__form-block">
@@ -168,13 +175,13 @@ class Cart extends Component {
                                         onChange={this.handleChangeCurrency} 
                                         value={this.state.currency}
                                     >
-                                        <option value="usd">$</option>
-                                        <option value="eur">€</option>
+                                        {currencyList.map((option, index) => {
+                                            return <option key={index} value={option.key}>{option.value}</option>
+                                        })}
                                     </select>
                                 </div>
                                 <div className="cart__footer-block">
-                                    <div className="cart__footer-title">Total: {total}</div>
-                                    
+                                    <div className="cart__footer-title">Total: {totalSum}</div>      
                                 </div>
                             </div>
                             <div className="cart__footer-delivery">10% added as a delivery cost</div>
@@ -183,7 +190,7 @@ class Cart extends Component {
                             <button className="cart__order-btn" onClick={this.handleOrder}>Order</button>
                         </div>
                     </div>
-                }
+                )}
             </div>
         )
     }
@@ -196,7 +203,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = {
-    getCart,
     removeItemFromCart,
     ascItemInCart,
     descItemInCart,

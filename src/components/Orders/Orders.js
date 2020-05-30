@@ -16,22 +16,22 @@ class Orders extends Component {
 
     render() {
         const { isLoading, orders } = this.props;
-        const isEmpty = !!orders.length;
+        const isEmpty = !orders.length;
 
         return (
             <div className="orders">
                 <h1>Orders history</h1>
                 {isLoading && <Loader />}
                 {isEmpty ?
-                <div className="orders__wrapper">
-                {orders.map((order, index) => {
-                    return (
-                        <OrderItem key={index} order={order} index={index} orderComposition={order.order} />
-                    )
-                })}
-                </div>
-                :
                 <div className="orders__empty">Empty table</div>
+                :
+                <div className="orders__wrapper">
+                    {orders.map((order, index) => {
+                        return (
+                            <OrderItem key={index} order={order} index={index} orderComposition={order.order} />
+                        )
+                    })}
+                </div>
                 }
             </div>
         )

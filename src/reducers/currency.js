@@ -4,7 +4,7 @@ import {
     GET_CURRENCY_FAILURE
 } from '../actions/currency'
 
-const initialState = {
+export const initialState = {
     data: {},
     error: ''
 };
@@ -18,7 +18,7 @@ export default function currency(state = initialState, action) {
         case GET_CURRENCY_SUCCESS: 
             return {
                 ...state,
-                data: action.data,
+                data: action.data
             };
         case GET_CURRENCY_FAILURE: 
             return {

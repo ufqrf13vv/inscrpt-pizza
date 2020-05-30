@@ -4,9 +4,9 @@ import {
     REMOVE_ITEM_FROM_CART,
     GET_CART,
     CLEAR_CART
-} from '../actions/cart'
+} from '../actions/cart';
 
-const initialState = {
+export const initialState = {
     items: []
 };
   
