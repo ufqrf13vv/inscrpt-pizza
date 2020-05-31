@@ -30,10 +30,13 @@ class MainPage extends Component {
         return (
             <div className="products">
                 <h1>Pizza</h1>
-                {isLoading && <Loader />}
+                {isLoading ?
+                <Loader />
+                :
                 <div className="products__wrapper">
                     { products.map((el, index) => <Item key={index} item={el} handleAdd={this.handleAdd} />) }
                 </div>
+                }
             </div>
         )
     }
