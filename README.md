@@ -30,4 +30,4 @@ Launches the test runner in the interactive watch mode.<br />
 
 ## Heroku deployment
 
-https://inscrpt-pizza.herokuapp.com/pizza
+https://inscrpt-pizza.herokuapp.com
