@@ -66,6 +66,18 @@ export function clearCart() {
     }
 }
 
+export function getTotal(state) {
+    return Number(state.cart.items.reduce((acc, cur) => acc + cur.price * cur.quantity, 0).toFixed(2));
+}
+
+export function getItemsCount(state) {
+    const count = state.cart.items.length 
+        ? state.cart.items.reduce((acc, cur) => acc + cur.quantity, 0) 
+        : 0;
+
+    return count;
+}
+
 export {
     ASC_ITEM_IN_CART,
     DESC_ITEM_IN_CART,

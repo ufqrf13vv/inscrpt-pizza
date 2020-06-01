@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import CartItem from './CartItem';
 
-import { removeItemFromCart, ascItemInCart, descItemInCart, clearCart } from '../../actions/cart';
+import { removeItemFromCart, ascItemInCart, descItemInCart, clearCart, getTotal } from '../../actions/cart';
 import { getCurrencyRequest } from '../../actions/currency';
 
 import { saveOrder, clearLocalCart } from '../../helpers';
@@ -198,7 +198,7 @@ class Cart extends Component {
 
 const mapStateToProps = state => ({
     cart: state.cart.items,
-    total: Number(state.cart.items.reduce((acc, cur) => acc + cur.price * cur.quantity, 0).toFixed(2)),
+    total: getTotal(state),
     EUR: state.currency.data.EUR
 })
 

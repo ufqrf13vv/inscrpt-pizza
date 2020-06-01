@@ -5,7 +5,7 @@ import Header from '../Header/Header';
 import Menu from '../Menu/Menu';
 import Footer from '../Footer/Footer';
 
-import { getCart } from '../../actions/cart';
+import { getCart, getItemsCount } from '../../actions/cart';
 
 class Layout extends Component {
     componentDidMount() {
@@ -29,9 +29,7 @@ class Layout extends Component {
 }
 
 const mapStateToProps = state => ({
-    count: state.cart.items.length 
-        ? state.cart.items.reduce((acc, cur) => acc + cur.quantity, 0) 
-        : 0
+    count: getItemsCount(state)
 });
 
 const mapDispatchToProps = {
